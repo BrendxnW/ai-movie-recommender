@@ -166,8 +166,7 @@ def recommender(request):
                     movie_list = get_movies_by_genre(genres)
                     if movie_list and isinstance(movie_list, list) and len(movie_list) > 0:
                         context['movie_result'] = (
-                            f"Sounds like you're in the mood for a {genre_display} movie.\n"
-                            f"Here are some movies I recommend:"
+                            f"Sounds like you're in the mood for a {genre_display} movie. Here are some movies I recommend:"
                         )
 
                         context['movie_options'] = movie_list

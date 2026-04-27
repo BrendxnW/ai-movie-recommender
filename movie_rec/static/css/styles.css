@@ -73,6 +73,10 @@ input {
     border-radius: 0.75rem;
     margin-bottom: 0.75rem;
 }
+.chat-input-bubble {
+    margin-left: auto;
+    max-width: 80%;
+}
 .chat-textarea {
     display: block;
     width: 100%;

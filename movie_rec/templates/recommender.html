@@ -5,7 +5,7 @@
 {% block content %}
   <div class="chat-container">
     <h1 class="text-xl font-bold mb-4 text-center">
-      Hello! I'm your Movie Chatbot!
+      Movie Recommender!
     </h1>
 
     {% if feature == "recommender" %}
@@ -29,15 +29,15 @@
         {% endif %}
 
         {% if movie_options %}
-          <div class="message-bubble">
+          <div id="movie-options-section" class="message-bubble">
             Click a movie to read the description:
           </div>
 
-          <form method="POST" class="space-y-2">
+          <form method="POST" action="#movie-options-section" class="space-y-2">
             {% csrf_token %}
             {% for movie in movie_options %}
-              <div class="movie-choice">
-                <button type="submit" name="selected_movie" value="{{ movie.title }}" class="block w-full text-left bg-white border border-gray-300 hover:bg-blue-100 px-4 py-2 rounded shadow-sm">
+              <div class="message-bubble">
+                <button type="submit" name="selected_movie" value="{{ movie.title }}" class="block w-full text-left bg-transparent hover:bg-blue-200 px-4 py-2 rounded">
                   {{ movie.title }}
                 </button>
 
@@ -63,11 +63,11 @@
 
       <form method="POST" id="movie-form" class="mt-4">
         {% csrf_token %}
-        <div class="chat-input-shell">
+        <div class="user-message-bubble ">
           <textarea
             name="movie_prompt"
             rows="1"
-            class="user-message-bubble auto-expand chat-textarea resize-none border-none"
+            class="auto-expand chat-textarea resize-none border-none bg-transparent outline-none focus:outline-none focus:ring-0 w-full"
             placeholder="Enter a genre"
             required
             autocomplete="off"></textarea>
