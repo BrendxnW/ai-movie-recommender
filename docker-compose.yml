@@ -4,9 +4,9 @@ services:
     image: movie-app
     container_name: movie-app
     ports:
-      - "8000.8000"
+      - "8000:8000"
     env_file:
-      - .env.server
+      - .env
     volumes:
       - .:/app
       - /opt/movie-data:/app/data:ro

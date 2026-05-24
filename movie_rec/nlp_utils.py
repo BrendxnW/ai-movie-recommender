@@ -7,16 +7,23 @@ from .tmdb_API import *
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-
-
 class ClassifyIntent:
     """
-    ...
+    Uses a text classification model to identify the intent of user input to find relevant movie titles.
     """
     def __init__(self):
         self.generator = pipeline("text-classification", model="BrendxnW/classify-intent-distilbert", device=0)
 
     def classify_intent(self, user_input):
+        """
+        Parses user input to find the intent of the user input.
+
+        Args:
+            user_input (str): 
+
+        Returns:
+            str: The intent of the user input.
+        """
         outputs = self.generator(user_input)
         label = outputs[0]['label'].lower()
 
@@ -93,6 +100,9 @@ class RecommendMovie:
         return unique_genres
 
     def classify_genre(self, user_input):
+        """
+
+        """
         prompt = (
             "You are a movie recommender bot.\n"
             "Classify the movie genre based on the user's request.\n"

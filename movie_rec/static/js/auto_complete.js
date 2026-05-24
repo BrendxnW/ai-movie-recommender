@@ -24,9 +24,7 @@ function setupAutocomplete(inputId) {
         return;
     }
 
-    // Add debouncing to prevent too many requests
     timeoutId = setTimeout(() => {
-        console.log('Searching for:', query); // Debug log
 
         fetch(`/search-movies/?q=${encodeURIComponent(query)}`)
         .then(response => {
@@ -36,7 +34,6 @@ function setupAutocomplete(inputId) {
             return response.json();
         })
         .then(data => {
-            console.log('Search results:', data); // Debug log
             currentResults = data.results || [];
             suggestions.innerHTML = '';
 
@@ -46,7 +43,6 @@ function setupAutocomplete(inputId) {
                 li.textContent = title;
                 li.className = 'hover:bg-gray-100 transition-colors';
 
-                // FIXED: Changed from mousedown to click
                 li.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -103,9 +99,7 @@ function setupAutocomplete(inputId) {
     }
     });
 
-    // Close suggestions when input loses focus
     input.addEventListener('blur', function() {
-    // Use setTimeout to allow click events on suggestions to fire first
     setTimeout(() => {
         if (!suggestions.contains(document.activeElement)) {
         suggestions.classList.add('hidden');
@@ -120,7 +114,7 @@ function setupAutocomplete(inputId) {
         li.classList.toggle('active', idx === activeIndex);
     });
 
-    // Scroll to active item if needed
+
     if (activeIndex >= 0 && activeIndex < items.length) {
         items[activeIndex].scrollIntoView({ block: 'nearest' });
     }
@@ -129,7 +123,6 @@ function setupAutocomplete(inputId) {
 
 // Initialize autocomplete when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Setting up autocomplete...'); // Debug log
     setupAutocomplete('movie1');
     setupAutocomplete('movie2');
 });
