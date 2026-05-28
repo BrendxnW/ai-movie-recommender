@@ -1,4 +1,4 @@
-<h1 align="center"> Movie Recommender and Remixer</h1>
+<h1 align="center">CineMatch AI</h1>
 
 <p align="center">
 <strong>Natural-language movie recommendations with summaries</strong><br>
