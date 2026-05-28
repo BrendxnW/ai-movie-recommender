@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll(".error").forEach(e => e.remove());
 
             if (data.success) {
-                window.location.href = "/login/";
+                window.location.href = form.dataset.loginUrl || "/";
             } else {
                 for (const field in data.errors) {
                     const input = document.querySelector(`[name="${field}"]`);

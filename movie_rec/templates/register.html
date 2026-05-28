@@ -4,8 +4,8 @@
 {% load static %}
 {% block content %}
 
-<div id="register-form" class="chat-container">
-    <form method="POST" action="">
+<div class="chat-container">
+    <form id="register-form" method="POST" action="" data-login-url="{% url 'login' %}">
         {% csrf_token %}
         <h2 class="text-xl font-bold mb-4 text-center">
             Register
@@ -41,11 +41,9 @@
                 <p class="text-red-500 text-sm">{{ error }}</p>
             {% endfor %}
 
-        <button type="submit" name="action" value="login" class="submit-button bg-indigo-600 text-white px-4 py-2 rounded" formnovalidate>
-            <a href="{% url 'login' %}">
-            ⬅ Back
-            </a>
-        </button>
+        <a href="{% url 'login' %}" class="submit-button bg-indigo-600 text-white px-4 py-2 rounded">
+            Back
+        </a>
 
         <button type="submit" class="submit-button bg-indigo-600 text-white px-4 py-2 rounded">
             Register
