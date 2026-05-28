@@ -43,7 +43,7 @@ class RecommendMovie:
     Classifies movies based on user input.
     """
     def __init__(self):
-        self.generator = pipeline("text2text-generation", model="BrendxnW/fine_tune_output", device=0)
+        self.generator = pipeline("text-generation", model="BrendxnW/fine_tune_output", device=0)
 
 
     @staticmethod
@@ -100,33 +100,52 @@ class RecommendMovie:
         return unique_genres
 
     def classify_genre(self, user_input):
-        """
+        keyword_map = {
+            "scary": "Horror",
+            "horror": "Horror",
+            "creepy": "Horror",
+            "funny": "Comedy",
+            "comedy": "Comedy",
+            "romantic": "Romance",
+            "romance": "Romance",
+            "love": "Romance",
+            "action": "Action",
+            "adventure": "Adventure",
+            "animated": "Animation",
+            "animation": "Animation",
+            "sad": "Drama",
+            "dramatic": "Drama",
+            "space": "Science Fiction",
+            "sci-fi": "Science Fiction",
+            "science fiction": "Science Fiction",
+        }
 
-        """
+        user_text = user_input.lower()
+        genres = []
+
+        for keyword, genre in keyword_map.items():
+            if keyword in user_text:
+                genres.append(genre)
+
+        if genres:
+            return list(set(genres))
+
         prompt = (
-            "You are a movie recommender bot.\n"
-            "Classify the movie genre based on the user's request.\n"
-            "IMPORTANT: If the user mentions multiple feelings or genres, list ALL of them.\n"
-            "Examples:\n"
-            "- 'funny and romantic' → Comedy, Romance\n"
-            "- 'animated and funny' → Animation, Comedy\n"
-            "- 'scary and funny' → Horror, Comedy\n"
-            "- 'action and adventure' → Action, Adventure\n"
-            "- 'I want something funny and romantic' → Comedy, Romance\n"
-            "- 'something scary but also funny' → Horror, Comedy\n"
-            "Always separate multiple genres with commas.\n\n"
-            f"User: {user_input}\n"
-            "Genre:"
+            "Classify the user's movie request into genres only.\n"
+            "Return only comma-separated genres. No explanation.\n"
+            "Valid genres include: Action, Adventure, Animation, Comedy, Drama, Horror, Romance, Science Fiction, Thriller.\n\n"
+            f"User request: {user_input}\n"
+            "Genres:"
         )
 
         outputs = self.generator(
             prompt,
-            max_new_tokens=50,
-            do_sample=True,
-            temperature=0.8,
+            max_new_tokens=20,
+            do_sample=False,
         )
+
         response = outputs[0]["generated_text"]
-        genre_only = response.split("Genre:")[-1].strip()
+        genre_only = response.split("Genres:")[-1].strip()
         genre_cleaned = self.clean_genre_output(genre_only)
 
         return genre_cleaned

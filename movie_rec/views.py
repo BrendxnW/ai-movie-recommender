@@ -158,9 +158,10 @@ def recommender(request):
                     genres = [genres]
 
                 request.session['current_genres'] = genres
-                request.session['current_genre'] = ", ".join(genres) if len(genres) > 1 else genres[0]
+                genre_display = ", ".join(genres) if genres else "Any"
+                request.session['current_genre'] = genre_display
 
-                genre_display = ", ".join(genres) if len(genres) > 1 else genres[0]
+                
 
                 try:
                     movie_list = get_movies_by_genre(genres)
